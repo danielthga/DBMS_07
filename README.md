@@ -421,7 +421,8 @@ uv --version
 
 > **Screenshot 4:** Take a screenshot showing the `uv --version` output.
 >
-> `[insert screenshot]`
+> <img width="1345" height="342" alt="grafik" src="https://github.com/user-attachments/assets/c1ec69a4-f209-43a2-906b-1e400803c1ea" />
+
 
 ---
 
@@ -497,7 +498,8 @@ uv run python3 berechnung.py
 > **Screenshot 5:** Take a screenshot showing the colourful table output
 > from `uv run`.
 >
-> `[insert screenshot]`
+> <img width="978" height="289" alt="grafik" src="https://github.com/user-attachments/assets/3971e4e7-7206-4755-aeb0-0c9df1fb6785" />
+
 
 ### Step 5 – Commit
 
@@ -514,13 +516,13 @@ git push
 `uv.lock` be committed to version control while generated files like `.venv/`
 should not?
 
-> *Your answer:*
+> Instead of the toml the lock file contains every information we need to recreate this enviorment on another maschine.
 
 **Question 4.2:** `uv run python3 berechnung.py` uses the virtual
 environment's Python. What would happen if you ran `python3 berechnung.py`
 directly (without `uv run`) and `rich` is not installed system-wide?
 
-> *Your answer:*
+> It will give us an error because it cant find the library rich.
 
 ---
 
@@ -652,20 +654,21 @@ git push
 query. What is the role of a cursor in the database connection model?
 Why is one connection able to hold multiple cursors simultaneously?
 
-> *Your answer:*
+> In psycopg2, the cursor acts as the interface between Python and the database for executing SQL.
 
 **Question 5.2:** The connection parameters (username, password, host) are
 written directly in the script as `DB_CONFIG`. Why is this a security problem
 in a real project? Name one common alternative for storing credentials outside
 the source code.
 
-> *Your answer:*
+> One connection can hold multiple cursors because each cursor manages its own independent query state while sharing the same session and transaction environment.
 
 **Question 5.3:** `cursor.fetchall()` returns a list of tuples. The script
 accesses `row[0]`, `row[1]`, etc. by index. What is the risk of this approach,
 and which `psycopg2` cursor subclass would return named columns instead?
 
-> *Your answer:*
+> Index-based access is fragile and hard to maintain.
+Use psycopg2.extras.RealDictCursor to get column-name access, improving readability and robustness.
 
 ---
 
