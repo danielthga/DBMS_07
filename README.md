@@ -58,7 +58,8 @@ pg_isready
 
 > **Screenshot 1:** Take a screenshot showing all three version/status checks.
 >
-> `[insert screenshot]`
+> <img width="696" height="163" alt="grafik" src="https://github.com/user-attachments/assets/f7281dad-919e-462e-b653-fb17c24cc992" />
+
 
 ---
 
@@ -111,19 +112,20 @@ Exit the REPL:
 > **Screenshot 2:** Take a screenshot showing all REPL interactions above,
 > including the f-string output.
 >
-> `[insert screenshot]`
+> <img width="1069" height="561" alt="grafik" src="https://github.com/user-attachments/assets/834839c1-9035-40df-b6b2-e66af10ce9bb" />
+
 
 ### Questions for Section 1
 
 **Question 1.1:** In the REPL, typing `2 ** 10` without `print` still shows
 `1024`. Why does this work in the REPL but *not* in a script file?
 
-> *Your answer:*
+> In a script file we need to assign this value to a variable or output.
 
 **Question 1.2:** The f-string format specifier `:.2f` controls how `price`
 is displayed. What does it mean, and what would `:.4f` produce for `18.9`?
 
-> *Your answer:*
+> It formats the precision of a float number, so 18.9000.
 
 ---
 
@@ -167,13 +169,14 @@ Exit the REPL:
 can write `sqrt(144)` without the `math.` prefix. What is the drawback of
 this style compared to `import math`?
 
-> *Your answer:*
+> We would only import sqrt and not the hole library, also we can not declare another function called sqrt.
 
 **Question 2.2:** The standard library is always available — it requires no
 installation. Name two other standard library modules (not `math`) and
 describe in one sentence what each one is used for.
 
-> *Your answer:*
+> Random - Creates random numbers
+> DateTime - Gives you date and time
 
 ---
 
@@ -234,7 +237,8 @@ python3 berechnung.py
 > **Screenshot 3:** Take a screenshot showing the terminal output of
 > `python3 berechnung.py`.
 >
-> `[insert screenshot]`
+> <img width="991" height="111" alt="grafik" src="https://github.com/user-attachments/assets/3cee7fd4-54e3-4ceb-bfad-59a07a3fad00" />
+
 
 ### Step 4 – Commit
 
@@ -251,13 +255,13 @@ it only under `if __name__ == "__main__"`. What is `__name__` set to when the
 file is run directly? What is it set to when the file is *imported* by another
 module — and why does this distinction matter?
 
-> *Your answer:*
+> "__main__" would be the name. If we import it the name would be berechnung
 
 **Question 3.2:** The `kreisflaeche` function could be defined without
 importing `math` by hard-coding `3.14159` instead of `math.pi`. Give one
 concrete reason why using `math.pi` is preferable.
 
-> *Your answer:*
+> This will give you a more precise value of pi, also you cant misstype.
 
 ---
 
