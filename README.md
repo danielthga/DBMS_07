@@ -762,7 +762,12 @@ from your code.
 > **Screenshot 7:** Take a screenshot showing the `curl` response and the
 > uvicorn startup log in the other terminal.
 >
-> `[insert screenshot]`
+> I used another port, because somebody else was using 8000 already.
+> <img width="1359" height="261" alt="grafik" src="https://github.com/user-attachments/assets/a02463b5-586d-42d1-b174-5e1d4e307db3" />
+> 
+> <img width="1074" height="115" alt="grafik" src="https://github.com/user-attachments/assets/04166391-b843-4035-bf37-80abbb9f4c9e" />
+
+
 
 ### Step 4 – Commit
 
@@ -780,12 +785,12 @@ git push
 automatically. What standard does it use to describe the API, and what
 advantage does machine-readable API documentation have over a PDF?
 
-> *Your answer:*
+> FastAPI uses the OpenAPI Specification, which enables interactive, machine-readable, and automatically synchronized API documentation. This is significantly more powerful than static PDF documentation because it supports automation, testing, and integration across tools and programming languages.
 
 **Question 6.2:** The `--reload` flag is useful during development but should
 not be used in production. Why?
 
-> *Your answer:*
+> --reload is a development convenience feature. It introduces overhead, instability, and unnecessary runtime complexity, which conflicts with the requirements of production systems where stability, performance, and controlled process management are required.
 
 ---
 
@@ -962,20 +967,21 @@ git push
 What would be the security risk of building the SQL string by concatenation
 (`"VALUES ('" + mitglied.nachname + "'...)`)? Name the attack this prevents.
 
-> *Your answer:*
+String concatenation allows attacker-controlled SQL execution. This enables SQL injection.
+Parameterized queries prevent this by separating code from data at the driver level.
 
 **Question 7.2:** The `RealDictCursor` in endpoints 1 and 2 returns each row
 as a dictionary instead of a tuple. Why does this make the API response more
 useful to a client that receives the JSON output?
 
-> *Your answer:*
+> RealDictCursor improves API usability because it produces structured, self-describing JSON objects, which are easier for clients to consume, resistant to column-order changes and better aligned with standard REST/JSON design practices
 
 **Question 7.3:** A caller of `GET /ausleihen/offen` receives a list of open
 loans without knowing anything about the underlying table structure, join logic,
 or database credentials. Name two concrete advantages this abstraction provides
 compared to giving every caller direct database access.
 
-> *Your answer:*
+> Compared to direct database access, the API provides: Security boundary: no credentials, no raw SQL access, reduced attack surface and Abstraction layer: stable interface independent of schema and query complexity.
 
 ---
 
@@ -987,7 +993,12 @@ can call `/ausleihen/offen` without knowing SQL. What is the general software
 engineering principle behind this, and where else in a typical application
 stack does the same principle appear?
 
-> *Your answer:*
+> The principle is abstraction / information hiding: exposing a simple interface while hiding implementation complexity.
+> It appears throughout the stack:
+> OS → system calls hide hardware
+> DB layer → ORMs hide SQL
+> Frontend → components hide DOM logic
+> API layer → endpoints hide database structure and queries
 
 **Question B – Stateless HTTP vs. database connections:**  
 Each of the three endpoints opens a new database connection and closes it after
@@ -995,7 +1006,9 @@ the query. In a production system with hundreds of simultaneous requests this
 would be inefficient. What is the standard solution, and which Python library
 provides it for `psycopg2`?
 
-> *Your answer:*
+>Standard solution: database connection pooling
+>Prevents overhead of repeated connection creation
+>In psycopg2, implemented via psycopg2.pool (e.g. SimpleConnectionPool, ThreadedConnectionPool)
 
 **Question C – Authentication:**  
 The API currently has no access control — anyone who can reach the server on
@@ -1004,7 +1017,8 @@ to a FastAPI application are **JWT tokens** (stateless, validated by the API
 itself) and **Keycloak** (external identity provider, acting as middleware).
 What is the main operational difference between the two approaches?
 
-> *Your answer:*
+> JWT: authentication is self-contained and validated directly by the API (no external dependency at runtime)
+> Keycloak: authentication is delegated to an external identity provider that manages users and issues tokens
 
 **Question D – The abstraction chain:**  
 You have now built a complete chain: raw data in PostgreSQL → SQL query in
@@ -1012,7 +1026,9 @@ Python → JSON response from FastAPI → curl client. Describe in two sentences
 what each link in this chain contributes and why removing any one of them
 would make the system harder to use or maintain.
 
-> *Your answer:*
+> PostgreSQL stores and manages the persistent structured data, ensuring reliable querying, consistency, and transactional integrity, while the Python SQL layer defines how the data is accessed and transformed into application-specific results.
+> FastAPI exposes this logic as a stable HTTP/JSON interface for clients, and tools like curl act as simple consumers that allow interaction and testing without needing database or backend knowledge;
+> removing any layer would either expose unsafe low-level access (database), mix concerns and reduce maintainability (Python logic), eliminate a standardized interface (API), or make the system harder to interact with (no client abstraction).
 
 ---
 
